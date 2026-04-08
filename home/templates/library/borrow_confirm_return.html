@@ -1,0 +1,9 @@
+{% extends "library/base.html" %}
+{% block content %}
+<h3>Return Book</h3>
+<p>Return book: <strong>{{ borrow.book.title }}</strong> borrowed by <strong>{{ borrow.member }}</strong>?</p>
+<form method="post">{% csrf_token %}
+  <button class="btn btn-success">Confirm Return</button>
+  <a class="btn btn-secondary" href="{% url 'library:borrow_list' %}">Cancel</a>
+</form>
+{% endblock %}
