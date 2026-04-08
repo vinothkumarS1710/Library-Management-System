@@ -1,0 +1,25 @@
+{% extends "library/base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+  <h3>Members</h3>
+  <a class="btn btn-success" href="{% url 'library:member_add' %}">Add Member</a>
+</div>
+
+<table class="table">
+  <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Actions</th></tr></thead>
+  <tbody>
+    {% for m in members %}
+    <tr>
+      <td>{{ m.first_name }} {{ m.last_name }}</td>
+      <td>{{ m.email }}</td>
+      <td>{{ m.join_date }}</td>
+      <td>
+        <a class="btn btn-sm btn-primary" href="{% url 'library:member_edit' m.pk %}">Edit</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No members yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

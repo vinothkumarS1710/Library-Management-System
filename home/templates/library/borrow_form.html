@@ -1,0 +1,10 @@
+{% extends "library/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h3>{{ title }}</h3>
+<form method="post">{% csrf_token %}
+  {{ form|crispy }}
+  <button class="btn btn-primary mt-2">Borrow</button>
+  <a class="btn btn-secondary mt-2" href="{% url 'library:borrow_list' %}">Cancel</a>
+</form>
+{% endblock %}

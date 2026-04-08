@@ -1,0 +1,32 @@
+{% extends "library/base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+  <h3>Borrow Transactions</h3>
+  <a class="btn btn-success" href="{% url 'library:borrow_add' %}">Borrow Book</a>
+</div>
+
+<table class="table">
+  <thead><tr><th>Book</th><th>Member</th><th>Borrowed</th><th>Due</th><th>Returned</th><th>Fine</th><th>Action</th></tr></thead>
+  <tbody>
+    {% for b in borrows %}
+    <tr>
+      <td>{{ b.book.title }}</td>
+      <td>{{ b.member }}</td>
+      <td>{{ b.borrowed_at }}</td>
+      <td>{{ b.due_date }}</td>
+      <td>{% if b.returned_at %}{{ b.returned_at }}{% else %}-{% endif %}</td>
+      <td>{{ b.fine }}</td>
+      <td>
+        {% if not b.returned_at %}
+          <a class="btn btn-sm btn-warning" href="{% url 'library:borrow_return' b.pk %}">Return</a>
+        {% else %}
+          <span class="text-success">Returned</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="7">No transactions yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
